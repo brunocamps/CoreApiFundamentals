@@ -18,27 +18,31 @@ namespace CoreCodeCamp
   {
     public void ConfigureServices(IServiceCollection services)
     {
+      //adding context object to the database 
       services.AddDbContext<CampContext>();
-      services.AddScoped<ICampRepository, CampRepository>();
+      services.AddScoped<ICampRepository, CampRepository>(); //camp repository and associated interface
 
-      services.AddControllers();
+      services.AddControllers(); //not adding the view support. No need for this.
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
+      //using only on development
       if (env.IsDevelopment())
       {
         app.UseDeveloperExceptionPage();
       }
 
-      app.UseRouting();
+      app.UseRouting(); //using routing
 
+      //using authentication and authorization
+      //marcar metricas que marcou atrasada
       app.UseAuthentication();
       app.UseAuthorization();
 
       app.UseEndpoints(cfg =>
       {
-        cfg.MapControllers();
+        cfg.MapControllers(); //for endpoints, we're only mapping controllers
       });
     }
   }
